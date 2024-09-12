@@ -7,13 +7,10 @@ Sentry.init({
   dsn: "https://9b6c7eae9806fcf11e22a56265cac2b3@o127521.ingest.us.sentry.io/4507938758852608",
   tracesSampleRate: 1.0,
   beforeSend(event, hint) {
-    let shouldWeSendEventToSentry = true;
 
-    // If event should be reported, return event. To skip, return null.
-    if (shouldWeSendEventToSentry) {
-      console.warn(`🔴 Sentry's beforeSend hook decided to report error 🔴`);
-      return event;
-    }
+    console.warn(`🟡Why is Sentry's beforeSend hook is running 🟡`);
+
+
     return null;
   },
 
@@ -39,6 +36,7 @@ const myErrorHandler: HandleServerError = ({
   } (@handleError)`;
 
   if (status < 500) {
+    console.log('Error is less than 500, so we are not sending it to Sentry');
     return;
   }
   Sentry.setContext("sveltekit", { event });
